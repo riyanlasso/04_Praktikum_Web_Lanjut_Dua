@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\AboutusController;
-use App\Http\Controllers\ContactusController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
 
 
 /*
@@ -19,42 +20,18 @@ use App\Http\Controllers\ContactusController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
-// Route 
-Route::get('/',[HomeController::class,'index']);
-
-// Route Prefix
-Route::prefix('product')->group(function () {
-    Route::get('1',[ProductController::class,'product']);
-     
+Route::get('/home', function () {
+    return view('home'); //diambil dari nama depan view (home.blade.php)
 });
 
-//Route Parameter
-Route::get('/news/{id}', function ($id) {
-    return 'oke';
-    
-    
+Route::get('/about', function () {
+    return view('about');
 });
-    
-// Route Prefix
-Route::prefix('program')->group(function () {
-    Route::get('1',[ProgramController::class,'program']);    
+Route::get('/contact', function () {
+    return view('contact');
 });
-
-// Route Public
-Route::get('/about',[AboutusController::class,'about']);
-
-// Route Resource
-Route::get('/contact',[ContactusController::class,'index']);
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/features', function () {
+    return view('features');
+});
+Route::post('/upload', [ContactController::class, 'store']);
